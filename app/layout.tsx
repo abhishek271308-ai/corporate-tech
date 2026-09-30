@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { GoogleTagManager } from "@next/third-parties/google";
+import Script from "next/script";
 import ThemeProvider from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim();
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -59,7 +59,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </div>
         </ThemeProvider>
 
-        {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
+        {gtmId ? (
+          <>
+            <Script id="nexora-gtm-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  'gtm.start': Date.now(),
+                  event: 'gtm.js'
+                });
+              `}
+            </Script>
+
+            <Script
+              id="nexora-gtm"
+              src={`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`}
+              strategy="lazyOnload"
+            />
+          </>
+        ) : null}
       </body>
     </html>
   );
