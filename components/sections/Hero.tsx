@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotionPreference } from "@/lib/use-reduced-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -23,7 +24,7 @@ const technologies = ["Next.js", "React", "TypeScript", "Node.js", "Python"];
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
 
   const animate = reduceMotion === false && !paused;
 
