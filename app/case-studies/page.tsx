@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
-import Hero from "@/components/sections/Hero";
-import Features from "@/components/sections/Features";
-import OrganizationSchema from "@/components/OrganizationSchema";
+import CaseStudies from "@/components/sections/CaseStudies";
 import { createPageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Digital Product Engineering",
-  description: site.description,
-  path: "/",
+  title: "Case Studies",
+  description:
+    "Explore sample project concepts across web development, artificial intelligence, and e-commerce.",
+  path: "/case-studies",
 });
 
-export default function HomePage() {
-  return (
-    <>
-      <OrganizationSchema />
-      <Hero />
-      <Features />
-    </>
-  );
+export default function CaseStudiesPage() {
+  return <CaseStudies />;
 }
